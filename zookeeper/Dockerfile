@@ -2,7 +2,7 @@
 #
 #VERSION 0.0.1
 
-FROM debian:wheezy
+FROM moonnoon/base:latest
 MAINTAINER Fei Lee <lee.lfff@gmail.com>
 
 RUN mkdir -p /opt/zookeeper

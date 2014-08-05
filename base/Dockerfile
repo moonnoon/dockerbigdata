@@ -5,8 +5,9 @@
 FROM debian:wheezy
 MAINTAINER Fei Lee <lee.lfff@gmail.com>
 
+ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update -qq
-RUN apt-get install -qqy git wget vim
+RUN apt-get install -qqy git wget vim ca-certificates
 
 #install java
 RUN \
