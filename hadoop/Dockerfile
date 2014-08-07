@@ -6,10 +6,10 @@ FROM moonnoon/base:latest
 MAINTAINER Fei Lee <lee.lfff@gmail.com>
 
 #ssh
-#RUN apt-get install -qqy ssh rsync
-#
-#need set /etc/ssh/ssh_config BatchMode no
-#
+RUN apt-get install -qqy ssh rsync
+#need set /etc/ssh/ssh_config StrictHostKeyChecking no
+RUN echo StrictHostKeyChecking no >> /etc/ssh/ssh_config
+
 
 RUN mkdir -p /opt/hadoop
 #Todo
@@ -20,12 +20,17 @@ tar -zxf - -C /opt/hadoop --strip-components=1
 WORKDIR /opt/hadoop
 
 #set hadoop
-ENV HADOOP_PREFIX /opt/hadoop
-export HADOOP_COMMON_LIB_NATIVE_DIR=$HADOOP_PREFIX/lib/native
-export HADOOP_OPTS="-Djava.library.path=$HADOOP_PREFIX/lib"
-#
+RUN export HADOOP_PREFIX=/opt/hadoop
+RUN export HADOOP_COMMON_LIB_NATIVE_DIR=$HADOOP_PREFIX/lib/native
+RUN export HADOOP_OPTS="-Djava.library.path=$HADOOP_PREFIX/lib"
+#set JAVA_HOME at hadoop/hadoop-env.sh
+RUN sed -i "/^export JAVA_HOME/ s:.*:export JAVA_HOME=$JAVA_HOME:" $HADOOP_PREFIX/etc/hadoop/hadoop-env.sh
+
+ADD ./conf/core-site.xml /opt/hadoop/etc/hadoop/core-site.xml
+ADD ./conf/hdfs-site.xml /opt/hadoop/etc/hadoop/hdfs-site.xml
 
 RUN bin/hdfs namenode -format
 
-#start dfs
-CMD ["sbin/start-dfs.sh"]
+#start dfs ssh
+ADD ./startup.sh /opt/hadoop/startup.sh
+CMD ["/opt/hadoop/startup.sh"]
