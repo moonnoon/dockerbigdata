@@ -1,0 +1,13 @@
+#elasticsearch
+#
+#VERSION 0.0.1
+
+FROM moonnoon/base:latest
+MAINTAINER Fei Lee <lee.lfff@gmail.com>
+
+RUN mkdir -p /opt/elasticsearch
+RUN wget -q -O - https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.3.1.tar.gz | \
+tar -zxf - -C /opt/elasticsearch --strip-components=1
+
+WORKDIR /opt/elasticsearch
+
