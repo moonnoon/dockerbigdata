@@ -29,8 +29,6 @@ RUN sed -i "/^export JAVA_HOME/ s:.*:export JAVA_HOME=$JAVA_HOME:" $HADOOP_PREFI
 ADD ./conf/core-site.xml /opt/hadoop/etc/hadoop/core-site.xml
 ADD ./conf/hdfs-site.xml /opt/hadoop/etc/hadoop/hdfs-site.xml
 
-RUN bin/hdfs namenode -format
-
 #start dfs ssh
 ADD ./startup.sh /opt/hadoop/startup.sh
 CMD ["/opt/hadoop/startup.sh"]
