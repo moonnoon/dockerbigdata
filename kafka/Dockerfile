@@ -13,5 +13,7 @@ ADD http://repo1.maven.org/maven2/org/slf4j/slf4j-log4j12/1.7.7/slf4j-log4j12-1.
 
 WORKDIR /opt/kafka/
 
+EXPOSE 9092
+
 ADD ./startup.sh /opt/kafka/startup.sh
 CMD ["/opt/kafka/startup.sh"]

@@ -12,4 +12,6 @@ tar -zxf - -C /opt/zookeeper --strip-components=1
 WORKDIR /opt/zookeeper
 ADD ./zoo.cfg conf/zoo.cfg
 
+EXPOSE 2181
+
 CMD ["bin/zkServer.sh", "start"]

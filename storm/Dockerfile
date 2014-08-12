@@ -5,9 +5,19 @@
 FROM moonnoon/base:latest
 MAINTAINER Fei Lee <lee.lfff@gmail.com>
 
+RUN apt-get intall -qqy python ruby maven supervisor
+
 RUN mkdir -p /opt/storm
 RUN wget -q -O - http://archive.apache.org/dist/incubator/storm/apache-storm-0.9.2-incubating/apache-storm-0.9.2-incubating.tar.gz | \
 tar -zxf - -C /opt/storm --strip-components=1
-WORKDIR /opt/storm
 
-#RUN apt-get intall -qqy python ruby maven supervisor
+RUN git clone https://github.com/apache/incubator-storm.git /opt/incubator-storm/
+
+WORKDIR /opt/incubator-storm/external/storm-kafka/
+RUN sed -i "s/0.9.3-incubating-SNAPSHOT/0.9.2-incubating/" pom.xml
+RUN mvn install
+
+ADD src/Test.java /opt/storm/examples/storm-starter/src/jvm/storm/starter/Test.java
+
+WORKDIR /opt/storm/examples/storm-starter
+RUN mvn package
