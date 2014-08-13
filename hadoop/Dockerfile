@@ -2,15 +2,15 @@
 #
 #VERSION 0.0.1
 
-FROM moonnoon/base:latest
+FROM moonnoon/base:testing
 MAINTAINER Fei Lee <lee.lfff@gmail.com>
 
 #ssh
 RUN apt-get install -qqy ssh rsync
 #need set /etc/ssh/ssh_config StrictHostKeyChecking no
 RUN echo "StrictHostKeyChecking no" >> /etc/ssh/ssh_config
-ssh-keygen -t dsa -P '' -f /root/.ssh/id_dsa
-cat ~/.ssh/id_dsa.pub >> /root/.ssh/authorized_keys
+RUN ssh-keygen -t dsa -P '' -f /root/.ssh/id_dsa
+RUN cat /root/.ssh/id_dsa.pub >> /root/.ssh/authorized_keys
 
 
 RUN mkdir -p /opt/hadoop
@@ -26,7 +26,7 @@ RUN export HADOOP_PREFIX=/opt/hadoop
 RUN export HADOOP_COMMON_LIB_NATIVE_DIR=$HADOOP_PREFIX/lib/native
 RUN export HADOOP_OPTS="-Djava.library.path=$HADOOP_PREFIX/lib"
 #set JAVA_HOME at hadoop/hadoop-env.sh
-RUN sed -i "/^export JAVA_HOME/ s:.*:export JAVA_HOME=$JAVA_HOME:" $HADOOP_PREFIX/etc/hadoop/hadoop-env.sh
+RUN sed -i "/^export JAVA_HOME/ s:.*:export JAVA_HOME=$JAVA_HOME:" /opt/hadoop/etc/hadoop/hadoop-env.sh
 
 ADD ./conf/core-site.xml /opt/hadoop/etc/hadoop/core-site.xml
 ADD ./conf/hdfs-site.xml /opt/hadoop/etc/hadoop/hdfs-site.xml

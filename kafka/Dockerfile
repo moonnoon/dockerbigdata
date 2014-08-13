@@ -2,7 +2,7 @@
 #
 #VERSION 0.0.1
 
-FROM moonnoon/base:latest
+FROM moonnoon/base:testing
 MAINTAINER Fei Lee <lee.lfff@gmail.com>
 
 RUN mkdir -p /opt/kafka/
