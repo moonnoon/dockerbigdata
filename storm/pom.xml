@@ -82,7 +82,7 @@
 		<artifactId>guava</artifactId>
 	</dependency>
 	<dependency>
-		<groupId>org.apache.storm.storm-kafka</groupId>
+		<groupId>org.apache.storm</groupId>
 		<artifactId>storm-kafka</artifactId>
 		<version>0.9.2-incubating</version>
 	</dependency>
