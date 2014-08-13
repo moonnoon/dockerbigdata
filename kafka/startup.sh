@@ -2,11 +2,11 @@
 #
 #startup.sh
 
-export ZK_IP=$(cat /etc/hosts | grep zookeeper | cut -f1)
+#export ZK_IP=$(cat /etc/hosts | grep zookeeper | cut -f1)
 export TOPIC=test
 
 #configure
-sed -i -e"s/^zookeeper.connect\s*=\s*localhost:2181/zookeeper.connect=$ZK_IP:2181/" /opt/kafka/config/server.properties
+sed -i -e"s/^zookeeper.connect\s*=\s*localhost:2181/zookeeper.connect=zookeeper:2181/" /opt/kafka/config/server.properties
 sed -i -e"s/^#advertised.host.name=<hostname routable by clients>/advertised.host.name=$(hostname -i)/" /opt/kafka/config/server.properties
 
 #start kafka server

@@ -9,5 +9,6 @@ RUN mkdir -p /opt/elasticsearch
 RUN wget -q -O - https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.3.1.tar.gz | \
 tar -zxf - -C /opt/elasticsearch --strip-components=1
 
-WORKDIR /opt/elasticsearch
+EXPOSE 9300
 
+CMD ["/opt/elasticsearch/bin/elasticsearch"]

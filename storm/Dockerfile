@@ -5,7 +5,7 @@
 FROM moonnoon/base:latest
 MAINTAINER Fei Lee <lee.lfff@gmail.com>
 
-RUN apt-get intall -qqy python ruby maven supervisor
+RUN apt-get intall -qqy maven
 
 RUN mkdir -p /opt/storm
 RUN wget -q -O - http://archive.apache.org/dist/incubator/storm/apache-storm-0.9.2-incubating/apache-storm-0.9.2-incubating.tar.gz | \

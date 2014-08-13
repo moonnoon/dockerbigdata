@@ -8,7 +8,9 @@ MAINTAINER Fei Lee <lee.lfff@gmail.com>
 #ssh
 RUN apt-get install -qqy ssh rsync
 #need set /etc/ssh/ssh_config StrictHostKeyChecking no
-RUN echo StrictHostKeyChecking no >> /etc/ssh/ssh_config
+RUN echo "StrictHostKeyChecking no" >> /etc/ssh/ssh_config
+ssh-keygen -t dsa -P '' -f /root/.ssh/id_dsa
+cat ~/.ssh/id_dsa.pub >> /root/.ssh/authorized_keys
 
 
 RUN mkdir -p /opt/hadoop
@@ -29,6 +31,6 @@ RUN sed -i "/^export JAVA_HOME/ s:.*:export JAVA_HOME=$JAVA_HOME:" $HADOOP_PREFI
 ADD ./conf/core-site.xml /opt/hadoop/etc/hadoop/core-site.xml
 ADD ./conf/hdfs-site.xml /opt/hadoop/etc/hadoop/hdfs-site.xml
 
-#start dfs ssh
+#start ssh dfs
 ADD ./startup.sh /opt/hadoop/startup.sh
 CMD ["/opt/hadoop/startup.sh"]

@@ -1,11 +1,12 @@
 #!/bin/bash
 #
-#
+#./build.sh
 
-sudo docker build -t moonnoon/base ./base/
-sudo docker build -t moonnoon/zookeeper ./zookeeper/
-sudo docker build -t moonnoon/kafka ./kafka/
-sudo docker build -t moonnoon/flume ./flume/
-sudo docker build -t moonnoon/hadoop ./hadoop
-sudo docker build -t moonnoon/elasticsearch ./elasticsearch/
-sudo docker build -t moonnoon/storm ./storm/
+sudo docker build -t moonnoon/base:testing ./base/
+sudo docker build -t moonnoon/zookeeper:testing ./zookeeper/
+sudo docker build -t moonnoon/kafka:testing ./kafka/
+sudo docker build -t moonnoon/flume:testing ./flume/
+sudo docker build -t moonnoon/appflume:testing ./appflume/
+sudo docker build -t moonnoon/hadoop:testing ./hadoop
+sudo docker build -t moonnoon/elasticsearch:testing ./elasticsearch/
+sudo docker build -t moonnoon/storm:testing ./storm/
