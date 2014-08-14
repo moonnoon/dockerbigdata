@@ -10,7 +10,7 @@ RUN wget -q -O - http://archive.apache.org/dist/zookeeper/zookeeper-3.4.6/zookee
 tar -zxf - -C /opt/zookeeper --strip-components=1
 
 WORKDIR /opt/zookeeper
-ADD ./zoo.cfg conf/zoo.cfg
+ADD ./conf/zoo.cfg /opt/zookeeper/conf/zoo.cfg
 
 EXPOSE 2181
 

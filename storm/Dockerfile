@@ -11,6 +11,14 @@ RUN mkdir -p /opt/storm
 RUN wget -q -O - http://archive.apache.org/dist/incubator/storm/apache-storm-0.9.2-incubating/apache-storm-0.9.2-incubating.tar.gz | \
 tar -zxf - -C /opt/storm --strip-components=1
 
+#require kafka_2.10-0.8.1.1.jar
+RUN mkdir -p /opt/kafka/
+RUN wget -q -O - https://archive.apache.org/dist/kafka/0.8.1.1/kafka_2.10-0.8.1.1.tgz | \
+tar -zxf - -C /opt/kafka/ --strip-components=1
+RUN cp /opt/kafka/libs/kafka_2.10-0.8.1.1.jar /opt/storm/lib/
+RUN cp /opt/kafka/libs/scala-library-2.10.1.jar /opt/storm/lib/
+RUN cp /opt/kafka/libs/metrics-core-2.2.0.jar /opt/storm/lib/
+
 RUN git clone https://github.com/apache/incubator-storm.git /opt/incubator-storm/
 
 WORKDIR /opt/incubator-storm/external/storm-kafka/

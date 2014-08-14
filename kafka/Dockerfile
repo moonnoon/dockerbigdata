@@ -15,5 +15,6 @@ WORKDIR /opt/kafka/
 
 EXPOSE 9092
 
+ADD ./conf/server.properties /opt/kafka/config/server.properties
 ADD ./startup.sh /opt/kafka/startup.sh
 CMD ["/opt/kafka/startup.sh"]

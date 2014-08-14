@@ -22,4 +22,5 @@ RUN cp flumeng-kafka-plugin/flumeng-kafka-plugin/libs/*.jar flume/lib/
 ADD ./conf/flume-conf.properties /opt/flume/conf/flume-conf.properties
 ADD ./startup.sh /opt/flume/startup.sh
 
+WORKDIR /opt/flume
 CMD ["/opt/flume/startup.sh"]
