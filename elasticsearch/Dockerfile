@@ -11,5 +11,5 @@ tar -zxf - -C /opt/elasticsearch --strip-components=1
 
 EXPOSE 9300
 
-WORDIR /opt/elasticsearch
+WORKDIR /opt/elasticsearch
 CMD ["/opt/elasticsearch/bin/elasticsearch"]

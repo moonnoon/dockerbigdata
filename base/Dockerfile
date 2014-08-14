@@ -7,7 +7,7 @@ MAINTAINER Fei Lee <lee.lfff@gmail.com>
 
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update -qq
-RUN apt-get install -qqy git wget vim ca-certificates
+RUN apt-get install -qqy git wget vim ca-certificates supervisor
 
 #install java
 RUN \
@@ -24,3 +24,5 @@ RUN \
 VOLUME ["/data"]
 
 ENV JAVA_HOME /usr/lib/jvm/java-7-oracle
+
+CMD ["supervisord"]

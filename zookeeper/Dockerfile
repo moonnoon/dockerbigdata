@@ -14,4 +14,4 @@ ADD ./conf/zoo.cfg /opt/zookeeper/conf/zoo.cfg
 
 EXPOSE 2181
 
-CMD ["bin/zkServer.sh", "start"]
+CMD ["bin/zkServer.sh", "start-foreground"]

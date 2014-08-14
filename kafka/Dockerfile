@@ -17,4 +17,6 @@ EXPOSE 9092
 
 ADD ./conf/server.properties /opt/kafka/config/server.properties
 ADD ./startup.sh /opt/kafka/startup.sh
-CMD ["/opt/kafka/startup.sh"]
+
+WORKDIR /opt/kafka/
+CMD /opt/kafka/startup.sh && bin/kafka-server-start.sh -daemon config/server.properties
