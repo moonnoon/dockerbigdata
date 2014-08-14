@@ -21,5 +21,6 @@ RUN \
 	apt-get install -y oracle-java7-installer && \ 
 	apt-get clean
 
+VOLUME ["/data"]
 
 ENV JAVA_HOME /usr/lib/jvm/java-7-oracle

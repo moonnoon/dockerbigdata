@@ -67,7 +67,7 @@ public class Test {
         public static void main(String[] args) throws Exception {
                 TopologyBuilder builder = new TopologyBuilder();
 
-                BrokerHosts hosts = new ZkHosts("172.17.1.158:2181");
+                BrokerHosts hosts = new ZkHosts("zookeeper_ip:2181");
                 SpoutConfig spoutConfig = new SpoutConfig(
                                 hosts,
                                 "test",
