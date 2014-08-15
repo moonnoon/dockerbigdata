@@ -15,9 +15,9 @@ RUN \
 	apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys EEA14886 && \
 	apt-get update
 
-RUN \
+RUN DEBIAN_FRONTEND=noninteractive \
 	echo debconf shared/accepted-oracle-license-v1-1 select true | debconf-set-selections && \
-	apt-get DEBIAN_FRONTEND=noninteractive install -y oracle-java7-installer && \ 
+	apt-get install -y oracle-java7-installer && \ 
 	apt-get clean
 
 ENV JAVA_HOME /usr/lib/jvm/java-7-oracle
