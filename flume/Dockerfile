@@ -19,12 +19,16 @@ RUN cp flumeng-kafka-plugin/flumeng-kafka-plugin/package/flumeng-kafka-plugin.ja
 RUN cp flumeng-kafka-plugin/flumeng-kafka-plugin/libs/*.jar flume/lib/
 
 
-#download hadoop, to get libhadoop.so.1.0.0 and commons-configuration-1.6.jar
+#74
+#download hadoop, to get libhadoop.so.1.0.0, commons-configuration-1.6.jar, etc
 RUN mkdir -p /opt/hadoop
 RUN wget -q -O - http://archive.apache.org/dist/hadoop/common/hadoop-2.4.1/hadoop-2.4.1.tar.gz | \
 tar -zxf - -C /opt/hadoop --strip-components=1
 RUN cp /opt/hadoop/share/hadoop/tools/lib/commons-configuration-1.6.jar /opt/flume/lib/
-RUN export HADOOP_COMMON_LIB_NATIVE_DIR=/opt/hadoop/lib/native
+RUN cp /opt/hadoop/share/hadoop/tools/lib/hadoop-auth-2.4.1.jar /opt/flume/lib/
+RUN cp /opt/hadoop/share/hadoop/common/hadoop-common-2.4.1.jar /opt/flume/lib/
+RUN cp /opt/hadoop/share/hadoop/hdfs/hadoop-hdfs-2.4.1.jar /opt/flume/lib/
+ENV HADOOP_COMMON_LIB_NATIVE_DIR /opt/hadoop/lib/native
 
 #download elasticsearch
 RUN mkdir -p /opt/elasticsearch

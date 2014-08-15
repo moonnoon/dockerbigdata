@@ -28,8 +28,10 @@ RUN mvn install
 ADD src/Test.java /opt/storm/examples/storm-starter/src/jvm/storm/starter/Test.java
 ADD ./pom.xml /opt/storm/examples/storm-starter/pom.xml
 WORKDIR /opt/storm/examples/storm-starter
+
+#make next one faster
 RUN mvn package
 
-ADD ./startup.sh /opt/storm/startup.sh
+ADD ./startup.sh /opt/storm/examples/storm-starter/startup.sh
 
-CMD ["/opt/storm/startup.sh"]
+CMD ["/opt/storm/examples/storm-starter/startup.sh"]

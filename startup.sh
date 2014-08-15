@@ -13,13 +13,16 @@ sudo docker rm -f flume 1>&- 2>&-
 sudo docker rm -f storm 1>&- 2>&-
 
 #run
-sudo docker run -d -P --name data moonnoon/base:testing
+sudo docker run -d -P --name data moonnoon/data:testing
 sudo docker run -d -P --volumes-from data --name zookeeper moonnoon/zookeeper:testing
+sleep 1s
 sudo docker run -d -P --volumes-from data --name kafka --link zookeeper:zookeeper moonnoon/kafka:testing
+sleep 1s
 sudo docker run -d -P --volumes-from data --name storm --link zookeeper:zookeeper moonnoon/storm:testing
 ID=$(sudo docker run -d -P --volumes-from data --name appflume --link zookeeper:zookeeper --link kafka:kafka moonnoon/appflume:testing)
 sudo docker run -d -P --volumes-from data --name hadoop --link zookeeper:zookeeper  moonnoon/hadoop:testing
 sudo docker run -d -P --volumes-from data --name elasticsearch --link zookeeper:zookeeper moonnoon/elasticsearch:testing
+sleep 5s
 sudo docker run -d -P --volumes-from data --name flume --link zookeeper:zookeeper --link hadoop:hadoop --link elasticsearch:elasticsearch moonnoon/flume:testing
 
 #

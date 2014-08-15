@@ -85,8 +85,8 @@ public class Test {
                 LocalCluster cluster = new LocalCluster();
                 cluster.submitTopology("test", conf, builder.createTopology());
 
-                Utils.sleep(200000);
-                cluster.killTopology("test");
-                cluster.shutdown();
+                //Utils.sleep(200000);
+                //cluster.killTopology("test");
+                //cluster.shutdown();
         }
 }

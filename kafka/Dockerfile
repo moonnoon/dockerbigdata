@@ -13,10 +13,13 @@ ADD http://repo1.maven.org/maven2/org/slf4j/slf4j-log4j12/1.7.7/slf4j-log4j12-1.
 
 WORKDIR /opt/kafka/
 
-EXPOSE 9092
-
 ADD ./conf/server.properties /opt/kafka/config/server.properties
 ADD ./startup.sh /opt/kafka/startup.sh
 
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -qqy supervisor
+ADD ./conf/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
+EXPOSE 9092
+
 WORKDIR /opt/kafka/
-CMD /opt/kafka/startup.sh && bin/kafka-server-start.sh -daemon config/server.properties
+CMD ["/opt/kafka/startup.sh"]

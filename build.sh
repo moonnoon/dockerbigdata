@@ -2,6 +2,7 @@
 #
 #./build.sh
 
+sudo docker build -t moonnoon/data:testing ./data/
 sudo docker build -t moonnoon/base:testing ./base/
 sudo docker build -t moonnoon/zookeeper:testing ./zookeeper/
 sudo docker build -t moonnoon/kafka:testing ./kafka/
