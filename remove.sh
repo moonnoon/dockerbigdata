@@ -2,6 +2,7 @@
 #
 #remove.sh
 
+sudo docker rmi -f moonnoon/data:testing
 sudo docker rmi -f moonnoon/base:testing
 sudo docker rmi -f moonnoon/zookeeper:testing
 sudo docker rmi -f moonnoon/kafka:testing

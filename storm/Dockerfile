@@ -23,7 +23,7 @@ RUN git clone https://github.com/apache/incubator-storm.git /opt/incubator-storm
 
 WORKDIR /opt/incubator-storm/external/storm-kafka/
 RUN sed -i "s/0.9.3-incubating-SNAPSHOT/0.9.2-incubating/" pom.xml
-RUN mvn install
+RUN mvn install -Dmaven.test.skip=true
 
 ADD src/Test.java /opt/storm/examples/storm-starter/src/jvm/storm/starter/Test.java
 ADD ./pom.xml /opt/storm/examples/storm-starter/pom.xml
