@@ -3,6 +3,7 @@
 #sudo ./build.sh
 
 docker build -t moonnoon/data:testing ./data/
+docker build -t moonnoon/nginx:testing ./nginx/
 docker build -t moonnoon/base:testing ./base/
 docker build -t moonnoon/zookeeper:testing ./zookeeper/
 docker build -t moonnoon/kafka:testing ./kafka/

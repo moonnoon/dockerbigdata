@@ -20,6 +20,7 @@ echo -e "Starting...\nIt will take some time.\n"
 
 #remove before container
 docker rm -f data 1>&- 2>&-
+docker rm -f nginx 1>&- 2>&-
 docker rm -f zookeeper 1>&- 2>&-
 docker rm -f kafka 1>&- 2>&-
 docker rm -f appflume 1>&- 2>&-
@@ -30,6 +31,7 @@ docker rm -f storm 1>&- 2>&-
 
 #run
 docker run -d -P --name data moonnoon/data:testing
+docker run -d -p 80:80 -p 443:443 --volumes-from data --name nginx moonnoon/nginx:testing
 docker run -d -P --volumes-from data --name zookeeper moonnoon/zookeeper:testing
 #waiting for zookeeper finish start
 waitfunc zookeeper 'binding to port 0.0.0.0/0.0.0.0:2181'
