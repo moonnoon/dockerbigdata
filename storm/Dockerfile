@@ -25,8 +25,8 @@ WORKDIR /opt/incubator-storm/external/storm-kafka/
 RUN sed -i "s/0.9.3-incubating-SNAPSHOT/0.9.2-incubating/" pom.xml
 RUN mvn install -Dmaven.test.skip=true
 
-ADD src/Test.java /opt/storm/examples/storm-starter/src/jvm/storm/starter/Test.java
 ADD ./pom.xml /opt/storm/examples/storm-starter/pom.xml
+ADD src/Test.java /opt/storm/examples/storm-starter/src/jvm/storm/starter/Test.java
 WORKDIR /opt/storm/examples/storm-starter
 
 RUN mvn package
