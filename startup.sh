@@ -29,28 +29,41 @@ docker rm -f elasticsearch 1>&- 2>&-
 docker rm -f flume 1>&- 2>&-
 docker rm -f storm 1>&- 2>&-
 
+#
 #run
+#
+#data
 docker run -d -P --name data moonnoon/data:testing
-docker run -d -p 80:80 -p 443:443 --volumes-from data --name nginx moonnoon/nginx:testing
+#zookeeper
 docker run -d -P --volumes-from data --name zookeeper moonnoon/zookeeper:testing
+#hadoop
+docker run -d -P --volumes-from data --name hadoop --link zookeeper:zookeeper  moonnoon/hadoop:testing
+#elasticsearch
+docker run -d -P --volumes-from data --name elasticsearch --link zookeeper:zookeeper moonnoon/elasticsearch:testing
+#nginx
+docker run -d -p 80:80 -p 443:443 --volumes-from data --name nginx moonnoon/nginx:testing
+
 #waiting for zookeeper finish start
 waitfunc zookeeper 'binding to port 0.0.0.0/0.0.0.0:2181'
 
+#kafka
 docker run -d -P --volumes-from data --name kafka --link zookeeper:zookeeper moonnoon/kafka:testing
+
 #waiting for zookeeper finish start
 waitfunc kafka 'INFO success: kafka entered RUNNING state'
 
+#storm
 docker run -d -P --volumes-from data --name storm --link zookeeper:zookeeper moonnoon/storm:testing
 ID=$(sudo docker run -d -P --volumes-from data --name appflume --link zookeeper:zookeeper --link kafka:kafka moonnoon/appflume:testing)
-docker run -d -P --volumes-from data --name hadoop --link zookeeper:zookeeper  moonnoon/hadoop:testing
-docker run -d -P --volumes-from data --name elasticsearch --link zookeeper:zookeeper moonnoon/elasticsearch:testing
 
 #waiting for hadoop finish start
 waitfunc hadoop 'INFO exited: dfs (exit status 0; expected)'
 
+#flume
 docker run -d -P --volumes-from data --name flume --link zookeeper:zookeeper --link hadoop:hadoop --link elasticsearch:elasticsearch moonnoon/flume:testing
 
 #
-IP=$(docker inspect --format='{{.NetworkSettings.IPAddress}}' $ID)
+#IP=$(docker inspect --format='{{.NetworkSettings.IPAddress}}' $ID)
+#echo -e "\nplease connect $IP:44444 or localhost:$(docker port appflume 44444 | cut -d":" -f2)"
 
-echo -e "\nplease connect $IP:44444 or localhost:$(docker port appflume 44444 | cut -d":" -f2)"
+echo -e "\nCongratulations!!!\nFinished"
