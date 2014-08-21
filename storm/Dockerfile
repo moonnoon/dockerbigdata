@@ -30,6 +30,10 @@ ADD src/Test.java /opt/storm/examples/storm-starter/src/jvm/storm/starter/Test.j
 WORKDIR /opt/storm/examples/storm-starter
 
 RUN mvn package
+ADD src/Test.java /opt/storm/examples/storm-starter/src/jvm/storm/starter/Test.java
+RUN mvn package
+ADD src/Test.java /opt/storm/examples/storm-starter/src/jvm/storm/starter/Test.java
+RUN mvn package
 
 ADD ./startup.sh /opt/storm/examples/storm-starter/startup.sh
 

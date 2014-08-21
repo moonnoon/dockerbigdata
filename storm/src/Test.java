@@ -63,6 +63,9 @@ public class Test {
 			//			"================ " + tuple.getValues() + " ============="));
 			//_collector.ack(tuple);
 			ip.putIP(ip.getIPFromString(tuple.getString(0)));
+			if (tuple.getString(0).compareTo("q") == 0) {
+				ip.noMore();
+			}
 		}
 
 		@Override
@@ -75,15 +78,18 @@ public class Test {
 
 	public static class TopIP {
 		private Map<String, Integer> map;
+		private boolean more;
 
 		public TopIP() {
 			map = new HashMap<String, Integer>();
+			more = true;
 		}
 		public void putIP(String ip) {
 			if (map.containsKey(ip)) {
 				map.put(ip, map.get(ip) + 1);
 			} else {
-				map.put(ip, 1);
+				if (ip != null) 
+					map.put(ip, 1);
 			}
 		}
 		public String getIPFromString(String str) {
@@ -99,6 +105,12 @@ public class Test {
 			TreeMap<String, Integer> tmap = new TreeMap<String, Integer>(new ValueComparator(map));
 			tmap.putAll(map);
 			return tmap;
+		}
+		public void noMore() {
+			more = false;
+		}
+		public boolean isMore() {
+			return more;
 		}
 
 		class ValueComparator implements Comparator<String> {
@@ -138,7 +150,9 @@ public class Test {
 		LocalCluster cluster = new LocalCluster();
 		cluster.submitTopology("test", conf, builder.createTopology());
 
-		Utils.sleep(32000);
+		while(MyBolt.ip.isMore()) {
+			Utils.sleep(4000);
+		}
 		cluster.killTopology("test");
 		cluster.shutdown();
 		for(Entry<String, Integer> entry: MyBolt.ip.getTopIP().entrySet()) {

@@ -39,6 +39,7 @@ RUN cp /opt/elasticsearch/lib/lucene-core-4.9.0.jar /opt/flume/lib/
 
 
 ADD ./startup.sh /opt/flume/startup.sh
+WORKDIR /opt/flume
 ADD ./conf/flume-conf.properties /opt/flume/conf/flume-conf.properties
 
 WORKDIR /opt/flume

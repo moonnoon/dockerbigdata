@@ -54,6 +54,8 @@ waitfunc kafka 'INFO success: kafka entered RUNNING state'
 
 #storm
 docker run -d -P --volumes-from data --name storm --link zookeeper:zookeeper moonnoon/storm:testing
+
+#appflume
 ID=$(sudo docker run -d -P --volumes-from data --name appflume --link zookeeper:zookeeper --link kafka:kafka moonnoon/appflume:testing)
 
 #waiting for hadoop finish start

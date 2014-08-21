@@ -20,8 +20,8 @@ RUN cp flumeng-kafka-plugin/flumeng-kafka-plugin/package/flumeng-kafka-plugin.ja
 RUN cp flumeng-kafka-plugin/flumeng-kafka-plugin/libs/*.jar flume/lib/
 
 WORKDIR /opt/flume
-ADD ./conf/flume-conf.properties /opt/flume/conf/flume-conf.properties
 ADD ./startup.sh /opt/flume/startup.sh
+ADD ./conf/flume-conf.properties /opt/flume/conf/flume-conf.properties
 
 EXPOSE 44444
 
