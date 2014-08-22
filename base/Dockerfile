@@ -5,6 +5,7 @@
 FROM debian:wheezy
 MAINTAINER Fei Lee <lee.lfff@gmail.com>
 
+ADD ./conf/sources.list /etc/apt/sources.list
 RUN apt-get update -qq
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -qqy git wget vim ca-certificates
 

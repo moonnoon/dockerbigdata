@@ -11,13 +11,14 @@ tar -zxf - -C /opt/kafka/ --strip-components=1
 
 ADD http://repo1.maven.org/maven2/org/slf4j/slf4j-log4j12/1.7.7/slf4j-log4j12-1.7.7.jar /opt/kafka/libs/slf4j-log4j12-1.7.7.jar
 
-WORKDIR /opt/kafka/
+RUN echo "deb http://mirrors.hustunique.com/debian/ wheezy main contrib non-free" > /etc/apt/sources.list
+RUN echo "deb-src http://mirrors.hustunique.com/debian/ wheezy main contrib non-free" >> /etc/apt/sources.list
+RUN apt-get update
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -qqy supervisor
+ADD ./conf/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 ADD ./conf/server.properties /opt/kafka/config/server.properties
 ADD ./startup.sh /opt/kafka/startup.sh
-
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -qqy supervisor
-ADD ./conf/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 EXPOSE 9092
 

@@ -8,6 +8,7 @@ MAINTAINER Fei Lee <lee.lfff@gmail.com>
 RUN apt-get update -qq
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -qqy supervisor openssh-server
 
+RUN mkdir -p /var/run/sshd
 RUN echo 'root:test' |chpasswd
 
 ADD ./conf/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
