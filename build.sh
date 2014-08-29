@@ -12,3 +12,4 @@ sudo docker build -t moonnoon/appflume:testing ./appflume/
 sudo docker build -t moonnoon/hadoop:testing ./hadoop
 sudo docker build -t moonnoon/elasticsearch:testing ./elasticsearch/
 sudo docker build -t moonnoon/storm:testing ./storm/
+sudo docker build -t moonnoon/kibana:testing ./kibana/

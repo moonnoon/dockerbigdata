@@ -28,6 +28,7 @@ sudo docker rm -f hadoop 1>&- 2>&-
 sudo docker rm -f elasticsearch 1>&- 2>&-
 sudo docker rm -f flume 1>&- 2>&-
 sudo docker rm -f storm 1>&- 2>&-
+sudo docker rm -f kibana 1>&- 2>&-
 
 #
 #run
@@ -39,7 +40,9 @@ sudo docker run -d -P --volumes-from data --name zookeeper moonnoon/zookeeper:te
 #hadoop
 sudo docker run -d -P --volumes-from data --name hadoop --link zookeeper:zookeeper  moonnoon/hadoop:testing
 #elasticsearch
-sudo docker run -d -P --volumes-from data --name elasticsearch --link zookeeper:zookeeper moonnoon/elasticsearch:testing
+sudo docker run -d -p 9200:9200 --volumes-from data --name elasticsearch --link zookeeper:zookeeper moonnoon/elasticsearch:testing
+#kibana
+sudo docker run -d -p 8080:80 --volumes-from data --name kibana --link elasticsearch:elasticsearch moonnoon/kibana:testing
 #nginx
 sudo docker run -d -p 80:80 -p 443:443 --volumes-from data --name nginx moonnoon/nginx:testing
 
@@ -68,4 +71,4 @@ sudo docker run -d -P --volumes-from data --name flume --link zookeeper:zookeepe
 #IP=$(sudo docker inspect --format='{{.NetworkSettings.IPAddress}}' $ID)
 #echo -e "\nplease connect $IP:44444 or localhost:$(sudo docker port appflume 44444 | cut -d":" -f2)"
 
-echo -e "\nCongratulations!!!\nFinished"
+echo -e "\nCongratulations!!!\nFinished..."
